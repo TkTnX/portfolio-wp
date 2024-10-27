@@ -16,22 +16,18 @@ Template Name: home
     <section class="title">
         <div class="title__wrapper">
             <div class="title__text">
-                <h1 class="text__title">
-                    Front-End <span>React</span> Developer
-                </h1>
-                <p class="text__desc">
-                    Привет, меня зовут <span>Тимур</span>! Я фронтенд
-                    разработчик, верстальщик
-                </p>
+                <?php the_field('title_title') ?>
+                <?php the_field('title_description') ?>
+
                 <ul class="text__socials">
                     <li class="social">
-                        <a href="https://github.com/TkTnX">
-                            <GithubImg class="socialImg" />
+                        <a href="<?php the_field("title_github") ?>">
+                            <img src="<?php bloginfo("template_url") ?>/assets/images/github.svg" class="socialImg" />
                         </a>
                     </li>
                     <li class="social">
-                        <a href="https://t.me/Timurka2077">
-                            <TelegramImg class="socialImg" />
+                        <a href="<?php the_field("title_telegram") ?>">
+                            <img src="<?php bloginfo("template_url") ?>/assets/images/telegram.svg" class="socialImg" />
                         </a>
                     </li>
                 </ul>
@@ -40,40 +36,14 @@ Template Name: home
                     <div class="stack__title">
                         <span>Технологии</span>
                         <ul class="stack__list">
-                            <li class="stack__item">
-                                <img width="50" src="<?php bloginfo("template_url") ?>/assets/images/js.svg"
-                                    alt="технология" />
-                            </li>
-                            <li class="stack__item">
-                                <img width="50" src="<?php bloginfo("template_url") ?>/assets/images/ts.svg"
-                                    alt="технология" />
-                            </li>
-                            <li class="stack__item">
-                                <img width="50" src="<?php bloginfo("template_url") ?>/assets/images/react.svg"
-                                    alt="технология" />
-                            </li>
-                            <li class="stack__item">
-                                <img width="50" src="<?php bloginfo("template_url") ?>/assets/images/html.svg"
-                                    alt="технология" />
-                            </li>
-                            <li class="stack__item">
-                                <img width="50" src="<?php bloginfo("template_url") ?>/assets/images/css.svg"
-                                    alt="технология" />
-                            </li>
-                            <li class="stack__item">
-                                <img width="50" src="<?php bloginfo("template_url") ?>/assets/images/scss.svg"
-                                    alt="технология" />
-                            </li>
-                            <li class="stack__item">
-                                <img width="50" src="<?php bloginfo("template_url") ?>/assets/images/nextjs.svg"
-                                    alt="технология" />
-                            </li>
+                            <?php the_field('title_stack') ?>
+
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="wrapper__img">
-                <img src="<?php bloginfo("template_url") ?>/assets/images/myImg.jpg" alt="картинка" />
+                <img src="<?php the_field('title_main-image') ?>" alt="Title img">
             </div>
         </div>
     </section>
@@ -87,14 +57,7 @@ Template Name: home
             </div>
             <div class="about__text">
                 <div class="hint">ОБО МНЕ</div>
-                <p class="about__info">
-                    <span>Я - Тимур, фронтенд разработчик.</span> Мой путь в разработке
-                    начался осенью 2023 года. Сейчас мне 15 лет и я учусь в школе. Я
-                    стремлюсь к развитию в сфере веб-разработки и хочу продолжать
-                    изучать новые технологии и методики. На данный момент я использую
-                    <span> React</span>, <span>TypeScript</span> и много других
-                    технологий для разработки своих проектов.
-                </p>
+                <?php the_field("about_about-text") ?>
             </div>
         </div>
     </section>
@@ -105,108 +68,60 @@ Template Name: home
         <div class="hint">Портфолио</div>
         <ul class="portfolio__list">
 
+            <?php
+            global $post;
 
+            $myposts = get_posts([
+                'numberposts' => -1,
 
-            <li class="portfolio__item">
-                <div class="portfolio__wrapper">
-                    <div class="portfolio__imgWrap">
-                        <img src="<?php bloginfo("template_url") ?>/assets/images/07.jpg" alt="inkHouse" />
-                    </div>
-                    <div class="portfolio__info">
-                        <h1 class="portfolio__cardTitle">Arcadia 🟣</h1>
-                        <p class="portfolio__desc">Цели: сверстать свой самый сложный макет на 18.09.24</p>
+            ]);
+            if ($myposts) {
+                foreach ($myposts as $post) {
+                    setup_postdata($post);
 
-                        <p class="portfolio__desc">Технологии: HTML, SCSS, JS</p>
-                        <div class="portfolio__deployments">
-                            <a target="_blank" href="https://github.com/TkTnX/Arcadia" class="portfolio__deployment">
-                                Код
-                                <img src="<?php bloginfo("template_url") ?>/assets/images/github.svg " alt="github" />
-                            </a>
+                    $content = apply_filters('the_content', get_the_content());
 
-                            <a target="_blank" href="https://arcadia-black.vercel.app" class="portfolio__deployment">
-                                Демо
-                                <img src="<?php bloginfo("template_url") ?>/assets/images/tab.svg" alt="Демо" />
+                    preg_match('/<figure class="wp-block-image size-large is-resized" id="image">(.*?)<\/figure>/s', $content, $matches);
+                    $image_text = isset($matches[1]) ? $matches[1] : 'Изображение не найдено';
+                    preg_match('/<p id="goals">(.*?)<\/p>/s', $content, $matches);
+                    $goal_text = isset($matches[1]) ? $matches[1] : 'Цель не найдена';
+                    preg_match('/<p id="stack">(.*?)<\/p>/s', $content, $matches);
+                    $stack_text = isset($matches[1]) ? $matches[1] : 'Технологии не найдены';
+                    ?>
+                    <li class="portfolio__item">
+                        <div class="portfolio__wrapper">
+                            <div class="portfolio__imgWrap">
+                                <?php echo $image_text ?>
+                            </div>
+                            <div class="portfolio__info">
+                                <h1 class="portfolio__cardTitle"><?php the_title() ?></h1>
+                                <p class="portfolio__desc">Цели: <?php echo wp_kses_post($goal_text); ?> </p>
 
-                            </a>
+                                <p class="portfolio__desc">Технологии: <?php echo wp_kses_post($stack_text); ?></p>
+                                <div class="portfolio__deployments">
+                                    <a target="_blank" href="https://github.com/TkTnX/Arcadia" class="portfolio__deployment">
+                                        Код
+                                        <img src="<?php bloginfo("template_url") ?>/assets/images/github.svg " alt="github" />
+                                    </a>
+
+                                    <a target="_blank" href="https://arcadia-black.vercel.app" class="portfolio__deployment">
+                                        Демо
+                                        <img src="<?php bloginfo("template_url") ?>/assets/images/tab.svg" alt="Демо" />
+
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </li>
-            <li class="portfolio__item">
-                <div class="portfolio__wrapper">
-                    <div class="portfolio__imgWrap">
-                        <img src="<?php bloginfo("template_url") ?>/assets/images/07.jpg" alt="inkHouse" />
-                    </div>
-                    <div class="portfolio__info">
-                        <h1 class="portfolio__cardTitle">Arcadia 🟣</h1>
-                        <p class="portfolio__desc">Цели: сверстать свой самый сложный макет на 18.09.24</p>
+                    </li>
+                    <?php
+                }
+            }
 
-                        <p class="portfolio__desc">Технологии: HTML, SCSS, JS</p>
-                        <div class="portfolio__deployments">
-                            <a target="_blank" href="https://github.com/TkTnX/Arcadia" class="portfolio__deployment">
-                                Код
-                                <img src="<?php bloginfo("template_url") ?>/assets/images/github.svg " alt="github" />
-                            </a>
+            wp_reset_postdata(); // Сбрасываем $post
+            ?>
 
-                            <a target="_blank" href="https://arcadia-black.vercel.app" class="portfolio__deployment">
-                                Демо
-                                <img src="<?php bloginfo("template_url") ?>/assets/images/tab.svg" alt="Демо" />
 
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li class="portfolio__item">
-                <div class="portfolio__wrapper">
-                    <div class="portfolio__imgWrap">
-                        <img src="<?php bloginfo("template_url") ?>/assets/images/07.jpg" alt="inkHouse" />
-                    </div>
-                    <div class="portfolio__info">
-                        <h1 class="portfolio__cardTitle">Arcadia 🟣</h1>
-                        <p class="portfolio__desc">Цели: сверстать свой самый сложный макет на 18.09.24</p>
 
-                        <p class="portfolio__desc">Технологии: HTML, SCSS, JS</p>
-                        <div class="portfolio__deployments">
-                            <a target="_blank" href="https://github.com/TkTnX/Arcadia" class="portfolio__deployment">
-                                Код
-                                <img src="<?php bloginfo("template_url") ?>/assets/images/github.svg " alt="github" />
-                            </a>
-
-                            <a target="_blank" href="https://arcadia-black.vercel.app" class="portfolio__deployment">
-                                Демо
-                                <img src="<?php bloginfo("template_url") ?>/assets/images/tab.svg" alt="Демо" />
-
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li class="portfolio__item">
-                <div class="portfolio__wrapper">
-                    <div class="portfolio__imgWrap">
-                        <img src="<?php bloginfo("template_url") ?>/assets/images/07.jpg" alt="inkHouse" />
-                    </div>
-                    <div class="portfolio__info">
-                        <h1 class="portfolio__cardTitle">Arcadia 🟣</h1>
-                        <p class="portfolio__desc">Цели: сверстать свой самый сложный макет на 18.09.24</p>
-
-                        <p class="portfolio__desc">Технологии: HTML, SCSS, JS</p>
-                        <div class="portfolio__deployments">
-                            <a target="_blank" href="https://github.com/TkTnX/Arcadia" class="portfolio__deployment">
-                                Код
-                                <img src="<?php bloginfo("template_url") ?>/assets/images/github.svg " alt="github" />
-                            </a>
-
-                            <a target="_blank" href="https://arcadia-black.vercel.app" class="portfolio__deployment">
-                                Демо
-                                <img src="<?php bloginfo("template_url") ?>/assets/images/tab.svg" alt="Демо" />
-
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </li>
 
 
 
