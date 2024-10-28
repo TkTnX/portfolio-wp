@@ -76,7 +76,7 @@ Template Name: home
 
             ]);
             if ($myposts) {
-                foreach ($myposts as $post) {
+                foreach (array_reverse($myposts) as $post) {
                     setup_postdata($post);
 
                     $content = apply_filters('the_content', get_the_content());
@@ -87,7 +87,12 @@ Template Name: home
                     $goal_text = isset($matches[1]) ? $matches[1] : 'Цель не найдена';
                     preg_match('/<p id="stack">(.*?)<\/p>/s', $content, $matches);
                     $stack_text = isset($matches[1]) ? $matches[1] : 'Технологии не найдены';
+                    preg_match('/<p id="code">(.*?)<\/p>/s', $content, $matches);
+                    $code_text = isset($matches[1]) ? $matches[1] : 'Ссылка не найдена';
+                    preg_match('/<p id="demo">(.*?)<\/p>/s', $content, $matches);
+                    $demo_text = isset($matches[1]) ? $matches[1] : 'Ссылка не найдена';
                     ?>
+
                     <li class="portfolio__item">
                         <div class="portfolio__wrapper">
                             <div class="portfolio__imgWrap">
@@ -99,16 +104,25 @@ Template Name: home
 
                                 <p class="portfolio__desc">Технологии: <?php echo wp_kses_post($stack_text); ?></p>
                                 <div class="portfolio__deployments">
-                                    <a target="_blank" href="https://github.com/TkTnX/Arcadia" class="portfolio__deployment">
-                                        Код
-                                        <img src="<?php bloginfo("template_url") ?>/assets/images/github.svg " alt="github" />
-                                    </a>
+                                    <?php if ($code_text !== 'Ссылка не найдена'): ?>
+                                        <a target="_blank" href="<?php echo wp_kses_post($code_text) ?>"
+                                            class="portfolio__deployment">
+                                            Код
+                                            <img src="<?php bloginfo("template_url") ?>/assets/images/github.svg " alt="github" />
+                                        </a>
 
-                                    <a target="_blank" href="https://arcadia-black.vercel.app" class="portfolio__deployment">
-                                        Демо
-                                        <img src="<?php bloginfo("template_url") ?>/assets/images/tab.svg" alt="Демо" />
+                                    <?php endif; ?>
 
-                                    </a>
+                                    <?php if ($demo_text !== 'Ссылка не найдена'): ?>
+
+                                        <a target="_blank" href="<?php echo wp_kses_post($demo_text) ?>"
+                                            class="portfolio__deployment">
+                                            Демо
+                                            <img src="<?php bloginfo("template_url") ?>/assets/images/tab.svg" alt="Демо" />
+
+                                        </a>
+
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
