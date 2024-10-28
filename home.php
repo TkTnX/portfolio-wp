@@ -73,6 +73,7 @@ Template Name: home
 
             $myposts = get_posts([
                 'numberposts' => -1,
+                'category' => 4
 
             ]);
             if ($myposts) {
@@ -163,13 +164,9 @@ Template Name: home
 
                 <div class="reviews-kwork__userText">
                     <h3 class="reviews-kwork__userTitle">Тимур - профиль на Kwork</h3>
-                    <p class="reviews-kwork__userSubtitle">Frontend-разработчик, верстальщик</p>
+                    <p class="reviews-kwork__userSubtitle"><?php the_field("freelance_title") ?></p>
                     <p class="reviews-kwork__userDesc">
-                        Добро пожаловать! Я профессиональный веб-разработчик с опытом работы
-                        в области веб-технологий, включая HTML, CSS, SCSS, JavaScript, React
-                        и TypeScript. Меня зовут Тимур, и я готов помочь вам с реализацией
-                        вашего проекта! <br /> Буду делать всё качественно и быстро.
-                        Надеюсь, мы с вами поработаем.
+                        <?php the_field("freelance_description") ?>
                     </p>
                 </div>
             </div>
@@ -178,132 +175,42 @@ Template Name: home
 
         <div class="swiper swiper__wrapper">
             <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="reviews-swiper__wrapper">
-                        <div class="reviews-swiper__top">
-                            <a href="https://kwork.ru/user/timurttx">
-                                <img src="<?php bloginfo("template_url") ?>/assets/images/reviews/cssdent.jpg ?>"
-                                    alt="Отличная работа, все сделано быстро и строго по макету" />
-                            </a>
-                            <div>
-                                <div class="reviews-swiper__clientWrapper">
-                                    <p class="reviews-swiper__client">weblogos</p>
-                                    <Smile color="#84b747" />
+                <?php
+                global $post;
+
+                $myposts = get_posts([
+                    'numberposts' => -1,
+                    'category' => 7
+
+                ]);
+                if ($myposts) {
+                    foreach ($myposts as $post) {
+                        setup_postdata($post);
+
+                        ?>
+                        <div class="swiper-slide">
+                            <div class="reviews-swiper__wrapper">
+                                <div class="reviews-swiper__top">
+                                    <div class="reviews-swiper__clientWrapper">
+                                        <p class="reviews-swiper__client"><?php the_title() ?></p>
+                                        <img width="20" src="<?php bloginfo("template_url") ?>/assets/images/smile.svg"
+                                            alt="smile">
+                                    </div>
+                                    <div class="reviews-swiper__text">
+                                        <?php the_content(); ?>
+                                    </div>
                                 </div>
-                                <p class="reviews-swiper__review">Отличная работа, все сделано быстро и строго по
-                                    макету</p>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="reviews-swiper__wrapper">
-                        <div class="reviews-swiper__top">
-                            <a href="https://kwork.ru/user/timurttx">
-                                <img src="<?php bloginfo("template_url") ?>/assets/images/reviews/cssdent.jpg ?>"
-                                    alt="Отличная работа, все сделано быстро и строго по макету" />
-                            </a>
-                            <div>
-                                <div class="reviews-swiper__clientWrapper">
-                                    <p class="reviews-swiper__client">weblogos</p>
-                                    <Smile color="#84b747" />
-                                </div>
-                                <p class="reviews-swiper__review">Отличная работа, все сделано быстро и строго по
-                                    макету</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="reviews-swiper__wrapper">
-                        <div class="reviews-swiper__top">
-                            <a href="https://kwork.ru/user/timurttx">
-                                <img src="<?php bloginfo("template_url") ?>/assets/images/reviews/cssdent.jpg ?>"
-                                    alt="Отличная работа, все сделано быстро и строго по макету" />
-                            </a>
-                            <div>
-                                <div class="reviews-swiper__clientWrapper">
-                                    <p class="reviews-swiper__client">weblogos</p>
-                                    <Smile color="#84b747" />
-                                </div>
-                                <p class="reviews-swiper__review">Отличная работа, все сделано быстро и строго по
-                                    макету</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="reviews-swiper__wrapper">
-                        <div class="reviews-swiper__top">
-                            <a href="https://kwork.ru/user/timurttx">
-                                <img src="<?php bloginfo("template_url") ?>/assets/images/reviews/cssdent.jpg ?>"
-                                    alt="Отличная работа, все сделано быстро и строго по макету" />
-                            </a>
-                            <div>
-                                <div class="reviews-swiper__clientWrapper">
-                                    <p class="reviews-swiper__client">weblogos</p>
-                                    <Smile color="#84b747" />
-                                </div>
-                                <p class="reviews-swiper__review">Отличная работа, все сделано быстро и строго по
-                                    макету</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="reviews-swiper__wrapper">
-                        <div class="reviews-swiper__top">
-                            <a href="https://kwork.ru/user/timurttx">
-                                <img src="<?php bloginfo("template_url") ?>/assets/images/reviews/cssdent.jpg ?>"
-                                    alt="Отличная работа, все сделано быстро и строго по макету" />
-                            </a>
-                            <div>
-                                <div class="reviews-swiper__clientWrapper">
-                                    <p class="reviews-swiper__client">weblogos</p>
-                                    <Smile color="#84b747" />
-                                </div>
-                                <p class="reviews-swiper__review">Отличная работа, все сделано быстро и строго по
-                                    макету</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="reviews-swiper__wrapper">
-                        <div class="reviews-swiper__top">
-                            <a href="https://kwork.ru/user/timurttx">
-                                <img src="<?php bloginfo("template_url") ?>/assets/images/reviews/cssdent.jpg ?>"
-                                    alt="Отличная работа, все сделано быстро и строго по макету" />
-                            </a>
-                            <div>
-                                <div class="reviews-swiper__clientWrapper">
-                                    <p class="reviews-swiper__client">weblogos</p>
-                                    <Smile color="#84b747" />
-                                </div>
-                                <p class="reviews-swiper__review">Отличная работа, все сделано быстро и строго по
-                                    макету</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="reviews-swiper__wrapper">
-                        <div class="reviews-swiper__top">
-                            <a href="https://kwork.ru/user/timurttx">
-                                <img src="<?php bloginfo("template_url") ?>/assets/images/reviews/cssdent.jpg ?>"
-                                    alt="Отличная работа, все сделано быстро и строго по макету" />
-                            </a>
-                            <div>
-                                <div class="reviews-swiper__clientWrapper">
-                                    <p class="reviews-swiper__client">weblogos</p>
-                                    <Smile color="#84b747" />
-                                </div>
-                                <p class="reviews-swiper__review">Отличная работа, все сделано быстро и строго по
-                                    макету</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+                        <?php
+                    }
+                }
+
+                wp_reset_postdata(); // Сбрасываем $post
+                ?>
+
+
             </div>
             <div class="swiper-pagination"></div>
 

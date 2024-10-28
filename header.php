@@ -16,32 +16,18 @@
         <div class="container header__wrapper">
             <h3 class="header__logo">timur.dev</h3>
             <nav class="header__nav">
-                <ul class="header__list">
+                <?php the_field("header_nav-item") ?>
 
-
-                    <li class="list__item">
-                        <a href="#about" class="list__link">
-                            О себе
-                        </a>
-                    </li>
-                    <li class="list__item">
-                        <a href="#projects" class="list__link">
-                            Проекты
-                        </a>
-                    </li>
-                    <li class="list__item">
-                        <a href="#reviews" class="list__link">
-                            Отзывы и Фриланс
-                        </a>
-                    </li>
-
-                    <button class="button">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                </ul>
             </nav>
+            <button id="mobileButton" class="mobileButton">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <div id="mobileMenu" class="header__menu">
+            <?php the_field("header_nav-item") ?>
+
         </div>
 
     </header>
