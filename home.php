@@ -97,7 +97,9 @@ Template Name: home
                     <li class="portfolio__item">
                         <div class="portfolio__wrapper">
                             <div class="portfolio__imgWrap">
-                                <?php echo $image_text ?>
+                                <a href="<?php echo get_page_link(get_the_ID()) ?>">
+                                    <?php echo $image_text ?>
+                                </a>
                             </div>
                             <div class="portfolio__info">
                                 <h1 class="portfolio__cardTitle"><?php the_title() ?></h1>

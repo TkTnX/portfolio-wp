@@ -113,19 +113,31 @@ a {
   }
 }
 
-.black {
+
+
+.currentTheme {
+  background-color: rgba(255, 255, 0, 0.281);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme.active .currentTheme {
   transform: translateX(35px);
   background-color: rgba(0, 0, 0, 0.178);
   border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   @media (max-width: 485px) {
     transform: translateX(0);
     background-color: inherit;
   }
-}
-
-.light {
-  background-color: rgba(255, 255, 0, 0.281);
-  border-radius: 50%;
 }
 
 .mobileButton {
@@ -186,6 +198,12 @@ a {
 .header__menu li {
   margin-left: auto;
   margin-right: auto;
+}
+
+.header__nav {
+  display: flex;
+  align-items: center;
+  gap: 30px;
 }
 
 .header__nav ul {
@@ -667,4 +685,56 @@ a {
   font-weight: bold;
   color: #000;
   color: #009900;
+}
+
+.single__title {
+  text-align: center;
+  font-size: 42px;
+  font-weight: bold;
+}
+
+.single__content {
+  margin-top: 30px;
+}
+
+.single__content figure {
+  max-width: 100%;
+  display: flex;
+}
+
+.single__content img {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.single__content #goals {
+  text-align: center;
+  color: gray;
+  font-size: 26px;
+  margin-top: 20px;
+}
+
+.single__content #stack {
+  text-align: center;
+  font-size: 16px;
+
+  margin-top: 20px;
+}
+
+.single__link {
+  display: block;
+  max-width: max-content;
+  background: #3bd640;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  transition: all 0.1s ease-in;
+}
+
+.single__link:hover {
+  opacity: 0.8;
+  scale: 0.95;
 }
